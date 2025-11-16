@@ -1,0 +1,12 @@
+2025-11-16 18:09:04.586 IST [6873] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-16 18:09:04.590 IST [6873] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-16 18:09:04.590 IST [6873] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-16 18:09:04.591 IST [6873] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-16 18:09:04.608 IST [6874] LOG:  database system was interrupted; last known up at 2025-11-14 18:53:33 IST
+2025-11-16 18:09:04.853 IST [6874] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-11-16 18:09:04.858 IST [6874] LOG:  redo starts at 0/463B7A0
+2025-11-16 18:09:04.859 IST [6874] LOG:  invalid record length at 0/463B888: wanted 24, got 0
+2025-11-16 18:09:04.859 IST [6874] LOG:  redo done at 0/463B850 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-11-16 18:09:04.872 IST [6873] LOG:  database system is ready to accept connections
+2025-11-16 18:09:51.361 IST [6957] FATAL:  lock file "postmaster.pid" already exists
+2025-11-16 18:09:51.361 IST [6957] HINT:  Is another postmaster (PID 6873) running in data directory "/usr/local/var/postgres@14"?
