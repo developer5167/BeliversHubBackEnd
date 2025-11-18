@@ -10,3 +10,43 @@
 2025-11-16 18:09:04.872 IST [6873] LOG:  database system is ready to accept connections
 2025-11-16 18:09:51.361 IST [6957] FATAL:  lock file "postmaster.pid" already exists
 2025-11-16 18:09:51.361 IST [6957] HINT:  Is another postmaster (PID 6873) running in data directory "/usr/local/var/postgres@14"?
+2025-11-17 12:57:23.335 IST [4193] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-17 12:57:23.340 IST [4193] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-17 12:57:23.341 IST [4193] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-17 12:57:23.342 IST [4193] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-17 12:57:23.373 IST [4194] LOG:  database system was shut down at 2025-11-16 22:43:20 IST
+2025-11-17 12:57:23.388 IST [4193] LOG:  database system is ready to accept connections
+2025-11-17 18:14:53.986 IST [12594] ERROR:  column ad.rejection_reason does not exist at character 346
+2025-11-17 18:14:53.986 IST [12594] STATEMENT:  
+	      UPDATE ad_devices ad
+	      SET status = 'Rejected',
+	          status_updated_at = NOW(),
+	          rejection_reason = $1
+	      FROM ads a
+	      WHERE ad.ad_id = a.id
+	        AND ad.ad_id = $2
+	        AND ad.device_id = $3
+	        AND a.client_id = $4
+	        AND ad.status = 'in_review'
+	      RETURNING ad.ad_id, ad.device_id, ad.status, ad.rejection_reason, ad.status_updated_at
+	    
+2025-11-17 18:15:32.270 IST [12594] ERROR:  column ad.rejection_reason does not exist at character 346
+2025-11-17 18:15:32.270 IST [12594] STATEMENT:  
+	      UPDATE ad_devices ad
+	      SET status = 'Rejected',
+	          status_updated_at = NOW(),
+	          rejection_reason = $1
+	      FROM ads a
+	      WHERE ad.ad_id = a.id
+	        AND ad.ad_id = $2
+	        AND ad.device_id = $3
+	        AND a.client_id = $4
+	        AND ad.status = 'in_review'
+	      RETURNING ad.ad_id, ad.device_id, ad.status, ad.rejection_reason, ad.status_updated_at
+	    
+2025-11-17 18:17:25.259 IST [15413] ERROR:  relation "ad_devices" does not exist at character 15
+2025-11-17 18:17:25.259 IST [15413] STATEMENT:  select * from ad_devices
+2025-11-17 18:51:25.617 IST [4193] LOG:  received smart shutdown request
+2025-11-17 18:51:25.620 IST [4193] LOG:  background worker "logical replication launcher" (PID 4200) exited with exit code 1
+2025-11-17 18:51:25.620 IST [4195] LOG:  shutting down
+2025-11-17 18:51:25.633 IST [4193] LOG:  database system is shut down
