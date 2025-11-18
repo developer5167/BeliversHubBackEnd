@@ -50,3 +50,200 @@
 2025-11-17 18:51:25.620 IST [4193] LOG:  background worker "logical replication launcher" (PID 4200) exited with exit code 1
 2025-11-17 18:51:25.620 IST [4195] LOG:  shutting down
 2025-11-17 18:51:25.633 IST [4193] LOG:  database system is shut down
+2025-11-18 17:32:45.618 IST [18218] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-18 17:32:45.620 IST [18218] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-18 17:32:45.620 IST [18218] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-18 17:32:45.621 IST [18218] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-18 17:32:45.643 IST [18219] LOG:  database system was shut down at 2025-11-17 18:51:25 IST
+2025-11-18 17:32:45.653 IST [18218] LOG:  database system is ready to accept connections
+2025-11-18 17:33:15.630 IST [18282] ERROR:  relation "upload_sessions" does not exist at character 15
+2025-11-18 17:33:15.630 IST [18282] STATEMENT:  select * from upload_sessions 
+	
+2025-11-18 17:33:20.299 IST [18282] ERROR:  syntax error at or near "upload_sessions" at character 1
+2025-11-18 17:33:20.299 IST [18282] STATEMENT:  upload_sessions
+2025-11-18 17:45:40.429 IST [19245] ERROR:  relation "upload_sessions" does not exist at character 13
+2025-11-18 17:45:40.429 IST [19245] STATEMENT:  insert into "upload_sessions" ("id", "user_id", "upload_id", "file_key", "file_size", "mime_type", "status", "created_at", "updated_at") values (default, $1, $2, $3, $4, $5, $6, default, default)
+2025-11-18 17:46:15.437 IST [18282] ERROR:  syntax error at or near "form" at character 10
+2025-11-18 17:46:15.437 IST [18282] STATEMENT:  select * form upload_sessions
+2025-11-18 17:46:33.322 IST [18282] ERROR:  relation "hashtags" already exists
+2025-11-18 17:46:33.322 IST [18282] STATEMENT:  CREATE TABLE "hashtags" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"tag" varchar(128) NOT NULL,
+		"category" varchar(128) DEFAULT 'general'
+	);
+	--> statement-breakpoint
+	CREATE TABLE "media" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"post_id" integer,
+		"upload_session_id" integer,
+		"type" varchar(16) NOT NULL,
+		"duration_sec" integer DEFAULT 0,
+		"width" integer DEFAULT 0,
+		"height" integer DEFAULT 0,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	--> statement-breakpoint
+	CREATE TABLE "media_variants" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"quality" varchar(64) NOT NULL,
+		"url" text NOT NULL,
+		"size_bytes" integer DEFAULT 0,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	--> statement-breakpoint
+	CREATE TABLE "posts" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"caption" text,
+		"location" varchar(255) DEFAULT '',
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "upload_sessions" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"upload_id" varchar(64) NOT NULL,
+		"file_key" varchar(1024) NOT NULL,
+		"file_size" integer DEFAULT 0,
+		"mime_type" varchar(128) DEFAULT '',
+		"status" varchar(32) DEFAULT 'initiated',
+		"created_at" timestamp DEFAULT now() NOT NULL,
+		"updated_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "thumbnails" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"url" text NOT NULL,
+		"is_selected" boolean DEFAULT false
+	);
+	
+	-- select * form upload_sessions
+2025-11-18 17:46:40.839 IST [18282] ERROR:  relation "media" already exists
+2025-11-18 17:46:40.839 IST [18282] STATEMENT:  CREATE TABLE "media" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"post_id" integer,
+		"upload_session_id" integer,
+		"type" varchar(16) NOT NULL,
+		"duration_sec" integer DEFAULT 0,
+		"width" integer DEFAULT 0,
+		"height" integer DEFAULT 0,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	--> statement-breakpoint
+	CREATE TABLE "media_variants" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"quality" varchar(64) NOT NULL,
+		"url" text NOT NULL,
+		"size_bytes" integer DEFAULT 0,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	--> statement-breakpoint
+	CREATE TABLE "posts" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"caption" text,
+		"location" varchar(255) DEFAULT '',
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "upload_sessions" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"upload_id" varchar(64) NOT NULL,
+		"file_key" varchar(1024) NOT NULL,
+		"file_size" integer DEFAULT 0,
+		"mime_type" varchar(128) DEFAULT '',
+		"status" varchar(32) DEFAULT 'initiated',
+		"created_at" timestamp DEFAULT now() NOT NULL,
+		"updated_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "thumbnails" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"url" text NOT NULL,
+		"is_selected" boolean DEFAULT false
+	);
+	
+	-- select * form upload_sessions
+2025-11-18 17:46:48.038 IST [18282] ERROR:  relation "media_variants" already exists
+2025-11-18 17:46:48.038 IST [18282] STATEMENT:  CREATE TABLE "media_variants" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"quality" varchar(64) NOT NULL,
+		"url" text NOT NULL,
+		"size_bytes" integer DEFAULT 0,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	--> statement-breakpoint
+	CREATE TABLE "posts" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"caption" text,
+		"location" varchar(255) DEFAULT '',
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "upload_sessions" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"upload_id" varchar(64) NOT NULL,
+		"file_key" varchar(1024) NOT NULL,
+		"file_size" integer DEFAULT 0,
+		"mime_type" varchar(128) DEFAULT '',
+		"status" varchar(32) DEFAULT 'initiated',
+		"created_at" timestamp DEFAULT now() NOT NULL,
+		"updated_at" timestamp DEFAULT now() NOT NULL
+	);
+	CREATE TABLE "thumbnails" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"url" text NOT NULL,
+		"is_selected" boolean DEFAULT false
+	);
+	
+	-- select * form upload_sessions
+2025-11-18 17:46:55.303 IST [18282] ERROR:  relation "posts" already exists
+2025-11-18 17:46:55.303 IST [18282] STATEMENT:  CREATE TABLE "posts" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"caption" text,
+		"location" varchar(255) DEFAULT '',
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+2025-11-18 17:47:01.440 IST [18282] ERROR:  relation "upload_sessions" already exists
+2025-11-18 17:47:01.440 IST [18282] STATEMENT:  CREATE TABLE "upload_sessions" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer NOT NULL,
+		"upload_id" varchar(64) NOT NULL,
+		"file_key" varchar(1024) NOT NULL,
+		"file_size" integer DEFAULT 0,
+		"mime_type" varchar(128) DEFAULT '',
+		"status" varchar(32) DEFAULT 'initiated',
+		"created_at" timestamp DEFAULT now() NOT NULL,
+		"updated_at" timestamp DEFAULT now() NOT NULL
+	);
+2025-11-18 17:47:06.186 IST [18282] ERROR:  relation "thumbnails" already exists
+2025-11-18 17:47:06.186 IST [18282] STATEMENT:  CREATE TABLE "thumbnails" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"media_id" integer,
+		"url" text NOT NULL,
+		"is_selected" boolean DEFAULT false
+	);
+2025-11-18 17:49:30.767 IST [19360] ERROR:  relation "upload_sessions" does not exist at character 13
+2025-11-18 17:49:30.767 IST [19360] STATEMENT:  insert into "upload_sessions" ("id", "user_id", "upload_id", "file_key", "file_size", "mime_type", "status", "created_at", "updated_at") values (default, $1, $2, $3, $4, $5, $6, default, default)
+2025-11-18 17:50:40.915 IST [19423] ERROR:  relation "upload_sessions" does not exist at character 13
+2025-11-18 17:50:40.915 IST [19423] STATEMENT:  insert into "upload_sessions" ("id", "user_id", "upload_id", "file_key", "file_size", "mime_type", "status", "created_at", "updated_at") values (default, $1, $2, $3, $4, $5, $6, default, default)
+2025-11-18 17:51:54.395 IST [19491] ERROR:  relation "upload_sessions" does not exist at character 13
+2025-11-18 17:51:54.395 IST [19491] STATEMENT:  insert into "upload_sessions" ("id", "user_id", "upload_id", "file_key", "file_size", "mime_type", "status", "created_at", "updated_at") values (default, $1, $2, $3, $4, $5, $6, default, default)
+2025-11-18 17:53:37.894 IST [19787] ERROR:  relation "auth_providers" already exists
+2025-11-18 17:53:37.894 IST [19787] STATEMENT:  CREATE TABLE "auth_providers" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer,
+		"provider" varchar(50) NOT NULL,
+		"provider_id" varchar(300) NOT NULL,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	
+2025-11-18 17:56:37.505 IST [18282] ERROR:  relation "auth_providers" does not exist at character 15
+2025-11-18 17:56:37.505 IST [18282] STATEMENT:  select * from auth_providers
+2025-11-18 18:43:13.610 IST [20108] ERROR:  syntax error at or near "upload_sessions" at character 10
+2025-11-18 18:43:13.610 IST [20108] STATEMENT:  select * upload_sessions
