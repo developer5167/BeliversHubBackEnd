@@ -21,16 +21,9 @@ const connection = {
 const processingQueue = new Queue("video-processing", { connection });
 
 // Middleware advice: replace with real auth
-function authMiddleware(req: any, res: any, next: any) {
-  // temporary: set req.user
-  // In production, set from JWT/session
-  if (!req.headers["x-user-id"])
-    return res.status(401).json({ error: "set X-User-Id header for testing" });
-  req.user = { id: Number(req.headers["x-user-id"]) };
-  next();
-}
+import { requireAuth, AuthRequest } from "../middleware/authMiddleware";
 
-router.use(authMiddleware);
+router.use(requireAuth);
 
 /**
  * Request a presigned URL for uploading a video directly to R2

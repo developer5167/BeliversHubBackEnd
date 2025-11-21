@@ -2,6 +2,7 @@
 import express from "express";
 import { eq } from "drizzle-orm";
 import dotenv from "dotenv";
+import { requireAuth, AuthRequest } from "../middleware/authMiddleware";
 dotenv.config();
 
 import { db } from "../db/index";
@@ -9,13 +10,7 @@ import { upload_sessions, media as mediaTable, media_variants as variantsTable, 
 
 const router = express.Router();
 
-// auth middleware: reuse same as upload routes or extract to common file
-function authMiddleware(req: any, res: any, next: any) {
-  if (!req.headers["x-user-id"]) return res.status(401).json({ error: "set X-User-Id header for testing" });
-  req.user = { id: Number(req.headers["x-user-id"]) };
-  next();
-}
-router.use(authMiddleware);
+router.use(requireAuth);
 
 /**
  * GET /api/posts/upload-status/:uploadId
