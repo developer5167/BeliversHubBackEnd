@@ -287,3 +287,16 @@
 2025-11-20 20:40:49.492 IST [3129] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
 2025-11-20 20:40:49.513 IST [3130] LOG:  database system was shut down at 2025-11-20 18:58:27 IST
 2025-11-20 20:40:49.523 IST [3129] LOG:  database system is ready to accept connections
+2025-11-21 19:10:49.256 IST [3129] LOG:  received smart shutdown request
+2025-11-21 19:10:49.262 IST [3129] LOG:  background worker "logical replication launcher" (PID 3136) exited with exit code 1
+2025-11-21 19:10:49.262 IST [3131] LOG:  shutting down
+2025-11-21 19:10:49.283 IST [3129] LOG:  database system is shut down
+2025-11-22 11:43:22.648 IST [3241] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-22 11:43:22.650 IST [3241] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-22 11:43:22.650 IST [3241] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-22 11:43:22.651 IST [3241] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-22 11:43:22.673 IST [3242] LOG:  database system was shut down at 2025-11-21 19:10:49 IST
+2025-11-22 11:43:22.683 IST [3241] LOG:  database system is ready to accept connections
+2025-11-22 18:50:16.347 IST [18345] ERROR:  column "uploadid" does not exist at character 37
+2025-11-22 18:50:16.347 IST [18345] HINT:  Perhaps you meant to reference the column "upload_sessions.upload_id".
+2025-11-22 18:50:16.347 IST [18345] STATEMENT:  select * from upload_sessions where uploadid= '2671246d-e92c-4d19-abfa-a056cd673c92'

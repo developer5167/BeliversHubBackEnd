@@ -16,9 +16,9 @@ router.use(requireAuth);
  * GET /api/posts/upload-status/:uploadId
  * Returns upload processing status and (if done) media + variants + thumbnails
  */
-router.get("/upload-status/:uploadId", async (req, res) => {
+router.get("/upload-status", async (req:AuthRequest, res) => {
   try {
-    const { uploadId } = req.params;
+    const { uploadId } = req.query;
     const userId = req.user.id;
 
     if (!uploadId) return res.status(400).json({ error: "missing_uploadId" });

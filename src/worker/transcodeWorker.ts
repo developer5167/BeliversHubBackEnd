@@ -171,7 +171,7 @@ const worker = new Worker(
         const tpath = path.join(outDir, `thumb_${i}.jpg`);
         // ffmpeg -ss TIME -i input -frames:v 1 -q:v 2 out.jpg
         await runFFmpeg(["-y", "-ss", String(time), "-i", inputFile, "-frames:v", "1", "-q:v", "2", tpath]);
-        thumbs.push({ path: tpath, key: `processed/${userId}/${session.id}/thumbnails/thumb_${i}.jpg` });
+        thumbs.push({ path: tpath, key: `processed/${userId}/${uploadSessionId}/thumbnails/thumb_${i}.jpg` });
       }
       console.log("Thumbnails generated:", thumbs.map(t => t.path));
 
@@ -213,7 +213,7 @@ const worker = new Worker(
         producedVariants.push({
           quality: v.name,
           path: outFile,
-          key: `processed/${userId}/${session.id}/variants/video_${v.name}.mp4`,
+          key: `processed/${userId}/${uploadSessionId}/variants/video_${v.name}.mp4`,
           size: stat.size,
         });
         console.log("Produced variant:", outFile);
@@ -291,7 +291,7 @@ const worker = new Worker(
         hlsVariantInfos.push({
           name: v.quality,
           dir: vDir,
-          playlistKey: `processed/${userId}/${session.id}/hls/${v.quality}/index.m3u8`,
+          playlistKey: `processed/${userId}/${uploadSessionId}/hls/${v.quality}/index.m3u8`,
         });
         console.log("Created HLS for", v.quality, "->", playlistPath);
       }
@@ -322,7 +322,7 @@ const worker = new Worker(
         const items = await fs.promises.readdir(localDir);
         for (const item of items) {
           const localFile = path.join(localDir, item);
-          const relKey = `processed/${userId}/${session.id}/hls/${info.name}/${item}`;
+          const relKey = `processed/${userId}/${uploadSessionId}/hls/${info.name}/${item}`;
           // determine content type
           const ext = path.extname(item).toLowerCase();
           const contentType = ext === ".m3u8" ? "application/vnd.apple.mpegurl" : ext === ".ts" ? "video/MP2T" : "application/octet-stream";
@@ -337,12 +337,12 @@ const worker = new Worker(
         const bitrateEstimate = Number(uv.size / Math.max(1, durationSec)) * 8; // bytes/sec -> bits/sec estimate
         // find corresponding HLS playlist key
         const quality = uv.quality;
-        const playlistKey = `processed/${userId}/${session.id}/hls/${quality}/index.m3u8`;
+        const playlistKey = `processed/${userId}/${uploadSessionId}/hls/${quality}/index.m3u8`;
         masterContent += `#EXT-X-STREAM-INF:BANDWIDTH=${Math.round(bitrateEstimate)}\n${playlistKey}\n`;
       }
       const masterPath = path.join(outDir, "master.m3u8");
       await fs.promises.writeFile(masterPath, masterContent, "utf8");
-      const masterKey = `processed/${userId}/${session.id}/hls/master.m3u8`;
+      const masterKey = `processed/${userId}/${uploadSessionId}/hls/master.m3u8`;
       await uploadFileToR2(masterPath, masterKey, "application/vnd.apple.mpegurl");
 
       // 7) Insert DB rows: media, media_variants, thumbnails
@@ -350,7 +350,7 @@ const worker = new Worker(
         .insert(mediaTable)
         .values({
           post_id: null,
-          upload_session_id: session.id,
+          upload_session_id: uploadSessionId,
           type: "video",
           duration_sec: durationSec,
           width,
@@ -383,10 +383,10 @@ const worker = new Worker(
       await db
       .update(upload_sessions)
       .set({ status: "done" })
-      .where(eq(upload_sessions.id, session.id));
+      .where(eq(upload_sessions.id, uploadSessionId));
 
       // finally update upload_session -> done
-    //   await db.update(upload_sessions).set({ status: "done", updated_at: new Date() }).where(upload_sessions.id.eq(session.id)).run();
+    //   await db.update(upload_sessions).set({ status: "done", updated_at: new Date() }).where(upload_sessions.id.eq(uploadSessionId)).run();
 
       // cleanup tmp
       try {
@@ -400,12 +400,12 @@ const worker = new Worker(
       console.error("Worker processing error:", err);
       // update session failed
       try {
-        if (session && session.id) {
+        if (session && uploadSessionId) {
                await db
       .update(upload_sessions)
       .set({ status: "failed" })
-      .where(eq(upload_sessions.id, session.id)).execute();
-        //   await db.update(upload_sessions).set({ status: "failed", updated_at: new Date() }).where(upload_sessions.id.eq(session.id)).execute();
+      .where(eq(upload_sessions.id, uploadSessionId)).execute();
+        //   await db.update(upload_sessions).set({ status: "failed", updated_at: new Date() }).where(upload_sessions.id.eq(uploadSessionId)).execute();
         }
       } catch (e) {
         console.error("Failed to mark upload_session failed", e);

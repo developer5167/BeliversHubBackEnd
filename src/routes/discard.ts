@@ -12,25 +12,19 @@ import { s3 } from "../s3Client";
 import { DeleteObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
 dotenv.config();
-
+import { requireAuth, AuthRequest } from "../middleware/authMiddleware";
 const router = express.Router();
 const BUCKET = process.env.R2_BUCKET!;
-
 // same simple auth
-function authMiddleware(req: any, res: any, next: any) {
-  if (!req.headers["x-user-id"])
-    return res.status(401).json({ error: "missing user" });
-  req.user = { id: Number(req.headers["x-user-id"]) };
-  next();
-}
-router.use(authMiddleware);
+
+router.use(requireAuth);
 
 /**
  * DELETE /api/posts/discard-upload/:uploadId
  */
-router.delete("/discard-upload/:uploadId", async (req, res) => {
+router.delete("/discard-upload", async (req: AuthRequest, res) => {
   try {
-    const { uploadId } = req.params;
+    const { uploadId } = req.body;
     const userId = req.user.id;
 
     if (!uploadId) return res.status(400).json({ error: "missing_uploadId" });
