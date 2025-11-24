@@ -7,7 +7,7 @@ import {
   media as mediaTable,
   media_variants as variantsTable,
   thumbnails as thumbnailsTable,
-} from "../db/schema";
+} from "../db/schema/schema";
 import { s3 } from "../s3Client";
 import { DeleteObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";

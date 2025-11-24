@@ -6,7 +6,7 @@ dotenv.config();
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index";
-import { upload_sessions } from "../db/schema";
+import { upload_sessions } from "../db/schema/schema";
 import { getPresignedUploadUrl, headObject } from "../s3Client";
 import { Queue } from "bullmq";
 

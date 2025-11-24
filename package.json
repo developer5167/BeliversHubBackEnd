@@ -2,11 +2,11 @@
   "name": "belivershubbackend",
   "version": "1.0.0",
   "description": "",
-  "main": "paths.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "start": "node dist/app.js",
     "worker": "ts-node-dev --respawn --transpile-only src/worker/transcodeWorker.ts"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.933.0",
     "@aws-sdk/s3-request-presigner": "^3.933.0",
+    "aws-sdk": "^2.1692.0",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.63.2",
     "dotenv": "^17.2.3",

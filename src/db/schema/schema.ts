@@ -1,4 +1,6 @@
 import { pgTable, serial, varchar, text, timestamp, integer, boolean, uniqueIndex } from "drizzle-orm/pg-core";
+import { posts, verdictEnum } from "./posts";
+import { uuid } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -27,13 +29,7 @@ export const refresh_tokens = pgTable("refresh_tokens", {
   created_at: timestamp("created_at").defaultNow().notNull(),
   expires_at: timestamp("expires_at").notNull()
 });
-export const posts = pgTable("posts", {
-  id: serial("id").primaryKey(),
-  user_id: integer("user_id").notNull().references(() => users.id),
-  caption: text("caption"),
-  location: varchar("location", { length: 255 }).default(""),
-  created_at: timestamp("created_at").defaultNow().notNull(),
-});
+
 
 export const upload_sessions = pgTable("upload_sessions", {
   id: serial("id").primaryKey(),
@@ -49,7 +45,7 @@ export const upload_sessions = pgTable("upload_sessions", {
 
 export const media = pgTable("media", {
   id: serial("id").primaryKey(),
-  post_id: integer("post_id").references(() => posts.id),
+  post_id: uuid("post_id").references(() => posts.id),
   upload_session_id: integer("upload_session_id").references(() => upload_sessions.id),
   type: varchar("type", { length: 16 }).notNull(), // video/image
   duration_sec: integer("duration_sec").default(0),

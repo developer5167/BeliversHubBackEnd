@@ -1,6 +1,6 @@
 {
-  "id": "b01d2e22-82e5-4ac7-bdf1-272c4e452ed1",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ec228f5b-4058-460f-8ba5-4f4564e95bed",
+  "prevId": "b01d2e22-82e5-4ac7-bdf1-272c4e452ed1",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -71,6 +71,74 @@
         "moderation_events_post_id_posts_id_fk": {
           "name": "moderation_events_post_id_posts_id_fk",
           "tableFrom": "moderation_events",
+          "tableTo": "posts",
+          "columnsFrom": [
+            "post_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.post_metrics": {
+      "name": "post_metrics",
+      "schema": "",
+      "columns": {
+        "post_id": {
+          "name": "post_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "comments": {
+          "name": "comments",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "saves": {
+          "name": "saves",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_metrics_post_id_posts_id_fk": {
+          "name": "post_metrics_post_id_posts_id_fk",
+          "tableFrom": "post_metrics",
           "tableTo": "posts",
           "columnsFrom": [
             "post_id"

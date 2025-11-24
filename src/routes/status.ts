@@ -6,7 +6,7 @@ import { requireAuth, AuthRequest } from "../middleware/authMiddleware";
 dotenv.config();
 
 import { db } from "../db/index";
-import { upload_sessions, media as mediaTable, media_variants as variantsTable, thumbnails as thumbnailsTable } from "../db/schema";
+import { upload_sessions, media as mediaTable, media_variants as variantsTable, thumbnails as thumbnailsTable } from "../db/schema/schema";
 
 const router = express.Router();
 

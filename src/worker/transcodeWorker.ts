@@ -21,7 +21,7 @@ import {
   media_variants as variantsTable,
   thumbnails as thumbnailsTable,
   posts as postsTable,
-} from "../db/schema";
+} from "../db/schema/schema";
 import { getObject, s3 } from "../s3Client";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
@@ -151,7 +151,6 @@ const worker = new Worker(
       const width = videoStream.width || 0;
       const height = videoStream.height || 0;
       console.log({ durationSec, width, height, codec: videoStream.codec_name });
-
       // guardrails
       const MAX_DURATION = Number(process.env.MAX_VIDEO_DURATION_SEC || 60 * 60); // default 60 min
       if (durationSec > MAX_DURATION) {

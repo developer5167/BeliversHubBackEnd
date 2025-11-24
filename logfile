@@ -300,3 +300,69 @@
 2025-11-22 18:50:16.347 IST [18345] ERROR:  column "uploadid" does not exist at character 37
 2025-11-22 18:50:16.347 IST [18345] HINT:  Perhaps you meant to reference the column "upload_sessions.upload_id".
 2025-11-22 18:50:16.347 IST [18345] STATEMENT:  select * from upload_sessions where uploadid= '2671246d-e92c-4d19-abfa-a056cd673c92'
+2025-11-24 22:24:13.822 IST [46106] ERROR:  relation "auth_providers" already exists
+2025-11-24 22:24:13.822 IST [46106] STATEMENT:  CREATE TABLE "auth_providers" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"user_id" integer,
+		"provider" varchar(50) NOT NULL,
+		"provider_id" varchar(300) NOT NULL,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	
+2025-11-24 22:32:58.749 IST [46316] ERROR:  cannot drop table users because other objects depend on it
+2025-11-24 22:32:58.749 IST [46316] DETAIL:  constraint posts_user_id_users_id_fk on table posts depends on table users
+	constraint upload_sessions_user_id_users_id_fk on table upload_sessions depends on table users
+	constraint auth_providers_user_id_users_id_fk on table auth_providers depends on table users
+	constraint refresh_tokens_user_id_users_id_fk on table refresh_tokens depends on table users
+2025-11-24 22:32:58.749 IST [46316] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-11-24 22:32:58.749 IST [46316] STATEMENT:  drop table users
+2025-11-24 22:33:08.509 IST [46316] ERROR:  cannot drop table posts because other objects depend on it
+2025-11-24 22:33:08.509 IST [46316] DETAIL:  constraint media_post_id_posts_id_fk on table media depends on table posts
+2025-11-24 22:33:08.509 IST [46316] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-11-24 22:33:08.509 IST [46316] STATEMENT:  drop table posts
+2025-11-24 22:33:24.565 IST [46316] ERROR:  cannot drop table media because other objects depend on it
+2025-11-24 22:33:24.565 IST [46316] DETAIL:  constraint media_variants_media_id_media_id_fk on table media_variants depends on table media
+	constraint thumbnails_media_id_media_id_fk on table thumbnails depends on table media
+2025-11-24 22:33:24.565 IST [46316] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-11-24 22:33:24.565 IST [46316] STATEMENT:  drop table media
+2025-11-24 22:33:38.341 IST [46316] ERROR:  cannot drop table media because other objects depend on it
+2025-11-24 22:33:38.341 IST [46316] DETAIL:  constraint thumbnails_media_id_media_id_fk on table thumbnails depends on table media
+2025-11-24 22:33:38.341 IST [46316] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-11-24 22:33:38.341 IST [46316] STATEMENT:  
+	drop table media
+2025-11-24 22:33:57.244 IST [46316] ERROR:  cannot drop table users because other objects depend on it
+2025-11-24 22:33:57.244 IST [46316] DETAIL:  constraint upload_sessions_user_id_users_id_fk on table upload_sessions depends on table users
+	constraint auth_providers_user_id_users_id_fk on table auth_providers depends on table users
+	constraint refresh_tokens_user_id_users_id_fk on table refresh_tokens depends on table users
+2025-11-24 22:33:57.244 IST [46316] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-11-24 22:33:57.244 IST [46316] STATEMENT:  drop table users
+2025-11-24 22:34:05.155 IST [46316] ERROR:  table "posts" does not exist
+2025-11-24 22:34:05.155 IST [46316] STATEMENT:  drop table posts
+2025-11-24 22:34:25.033 IST [46316] ERROR:  table "upload_sessions" does not exist
+2025-11-24 22:34:25.033 IST [46316] STATEMENT:  
+	drop table upload_sessions
+2025-11-24 22:34:32.117 IST [46316] ERROR:  table "media_variants" does not exist
+2025-11-24 22:34:32.117 IST [46316] STATEMENT:  
+	drop table media_variants
+2025-11-24 22:34:56.491 IST [46316] ERROR:  table "moderation_events" does not exist
+2025-11-24 22:34:56.491 IST [46316] STATEMENT:  
+	drop table moderation_events
+2025-11-24 22:56:11.535 IST [47200] ERROR:  relation "users" already exists
+2025-11-24 22:56:11.535 IST [47200] STATEMENT:  
+	CREATE TABLE "users" (
+		"id" serial PRIMARY KEY NOT NULL,
+		"name" varchar(200),
+		"username" varchar(200) NOT NULL,
+		"avatar_url" text,
+		"bio" text,
+		"created_at" timestamp DEFAULT now() NOT NULL
+	);
+	
+2025-11-24 22:56:29.893 IST [47326] ERROR:  foreign key constraint "media_post_id_posts_id_fk" cannot be implemented
+2025-11-24 22:56:29.893 IST [47326] DETAIL:  Key columns "post_id" and "id" are of incompatible types: integer and uuid.
+2025-11-24 22:56:29.893 IST [47326] STATEMENT:  
+	ALTER TABLE "media" ADD CONSTRAINT "media_post_id_posts_id_fk" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE no action ON UPDATE no action;
+2025-11-24 22:58:48.382 IST [47480] ERROR:  foreign key constraint "media_post_id_posts_id_fk" cannot be implemented
+2025-11-24 22:58:48.382 IST [47480] DETAIL:  Key columns "post_id" and "id" are of incompatible types: integer and uuid.
+2025-11-24 22:58:48.382 IST [47480] STATEMENT:  
+	ALTER TABLE "media" ADD CONSTRAINT "media_post_id_posts_id_fk" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE no action ON UPDATE no action;
