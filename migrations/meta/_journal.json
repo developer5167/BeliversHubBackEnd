@@ -15,6 +15,20 @@
       "when": 1764010049506,
       "tag": "0001_brief_silver_samurai",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764258083580,
+      "tag": "0002_shocking_otto_octavius",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1764259583461,
+      "tag": "0003_old_krista_starr",
+      "breakpoints": true
     }
   ]
 }

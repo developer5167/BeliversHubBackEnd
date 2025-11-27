@@ -366,3 +366,23 @@
 2025-11-24 22:58:48.382 IST [47480] DETAIL:  Key columns "post_id" and "id" are of incompatible types: integer and uuid.
 2025-11-24 22:58:48.382 IST [47480] STATEMENT:  
 	ALTER TABLE "media" ADD CONSTRAINT "media_post_id_posts_id_fk" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE no action ON UPDATE no action;
+2025-11-25 00:31:55.513 IST [3241] LOG:  received smart shutdown request
+2025-11-25 00:31:55.516 IST [3241] LOG:  background worker "logical replication launcher" (PID 3248) exited with exit code 1
+2025-11-25 00:31:55.516 IST [3243] LOG:  shutting down
+2025-11-25 00:31:55.526 IST [3241] LOG:  database system is shut down
+2025-11-26 22:52:20.855 IST [2236] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-26 22:52:20.858 IST [2236] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-26 22:52:20.858 IST [2236] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-26 22:52:20.858 IST [2236] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-26 22:52:20.874 IST [2237] LOG:  database system was shut down at 2025-11-25 00:31:55 IST
+2025-11-26 22:52:20.883 IST [2236] LOG:  database system is ready to accept connections
+2025-11-27 00:29:18.476 IST [2236] LOG:  received smart shutdown request
+2025-11-27 00:29:18.479 IST [2236] LOG:  background worker "logical replication launcher" (PID 2243) exited with exit code 1
+2025-11-27 00:29:18.479 IST [2238] LOG:  shutting down
+2025-11-27 00:29:18.490 IST [2236] LOG:  database system is shut down
+2025-11-27 21:11:36.722 IST [6918] LOG:  starting PostgreSQL 14.15 (Homebrew) on x86_64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
+2025-11-27 21:11:36.725 IST [6918] LOG:  listening on IPv6 address "::1", port 5432
+2025-11-27 21:11:36.725 IST [6918] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-11-27 21:11:36.725 IST [6918] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-11-27 21:11:36.749 IST [6919] LOG:  database system was shut down at 2025-11-27 00:29:18 IST
+2025-11-27 21:11:36.758 IST [6918] LOG:  database system is ready to accept connections

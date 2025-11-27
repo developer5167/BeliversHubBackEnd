@@ -2,8 +2,6 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
-
-
 import authRoutes from "./routes/auth";
 import statusRoutes from "./routes/status";
 import discardRoutes from "./routes/discard";
@@ -13,6 +11,9 @@ import { requireAuth, AuthRequest } from "./middleware/authMiddleware";
 import adminModerationRouter from "./routes/adminModeration";
 import feedRouter from "./routes/feed";
 import reelsRouter from "./routes/reels";
+import analyticsRouter from "./routes/analytics";
+import userInterestsRouter from "./routes/userInterests";
+
 const app = express();
 app.use(express.json({ limit: "20mb" }  ));
 app.use("/auth", authRoutes);
@@ -23,9 +24,8 @@ app.use("/posts", postsRouter);
 app.use("/admin", adminModerationRouter);
 app.use("/feed", feedRouter);
 app.use("/reels", reelsRouter);
-
-
-
+app.use("/analytics", analyticsRouter);
+app.use("/user/interests", userInterestsRouter);
 
 app.get("/me", requireAuth, async (req: AuthRequest, res) => {
   return res.json({ id: req.user?.id, username: req.user?.username });
